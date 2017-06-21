@@ -1,3 +1,4 @@
+@account
 Feature: Related with account
     # Scenario: Opening login form
     #     Given User is on the landing page

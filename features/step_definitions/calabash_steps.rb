@@ -149,3 +149,35 @@ Then(/^User see his message "([^"]*)"$/) do |arg1|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
+#Visibility:
+
+When(/^User selects "([^"]*)" status$/) do |status|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^User's status should be set to "([^"]*)"$/) do |status|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given(/^User opens user panel$/) do
+    wait_for_element_exists("* contentDescription:'Otwórz panel'", timeout: 10)
+    touch("* {contentDescription CONTAINS[c] '#{"Otwórz panel"}'}")
+end
+
+#Archive:
+
+Given(/^User sends a message "([^"]*)" to "([^"]*)"$/) do |arg1, arg2|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given(/^User goes to archive$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^User should see a "([^"]*)" message in "([^"]*)" conversation$/) do |arg1, arg2|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given(/^User sends message "([^"]*)" to "([^"]*)"$/) do |arg1, arg2|
+  pending # Write code here that turns the phrase above into concrete actions
+end
