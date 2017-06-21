@@ -1,13 +1,5 @@
 require 'calabash-android/calabash_steps'
 
-def clear_touched_input cmd
-  item = query(cmd)[0]
-  if item['text'].is_a? String
-    item['text'].length.times do |i|
-      perform_action('keyboard_key_event', 67) # pressing backspace
-    end
-  end
-end
 
 Given(/^User is on the landing page$/) do
   wait_for_element_exists("* id:'floating_action_button'", timeout: 10)
@@ -58,17 +50,7 @@ Given(/^User sees text "([^"]*)" on the header$/) do |arg1|
 end
 
 When(/^User is filling in "([^"]*)" field by "([^"]*)"$/) do |arg1, arg2|
-  cmd = "* id:'#{arg1}'"
-  touch(cmd)
-  input_field = query(cmd)[0]
-  if !input_field.nil?
-    clear_touched_input(cmd)
-    keyboard_enter_text(arg2)
-    touch(cmd)
-    press_back_button
-  else
-    screenshot_and_raise "Input field: '#{arg1}' cannot be found"
-  end
+  fill_in_text_field(arg1, arg2)
 end
 
 When(/^User select (\d+) checkboxes$/) do |arg1|
@@ -109,11 +91,12 @@ end
 # Conversations
 
 Given(/^User is logged in as "([^"]*)" with password "([^"]*)"$/) do |arg1, arg2|
-  pending # Write code here that turns the phrase above into concrete actions
+  login_in_user(arg1, arg2)
 end
 
 Given(/^User sees list of contacts$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  wait_for_element_exists("* id:'contact_list_item_status'", timeout: 10)
+  wait_for_element_exists("* id:'contact_list_footer_view'", timeout: 10)
 end
 
 Given(/^User has a contact "([^"]*)"$/) do |arg1|
