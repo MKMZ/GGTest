@@ -80,7 +80,7 @@ end
 
 Then(/^User should see account page$/) do
   wait_for_element_exists("* id:'contact_list_item_status'", timeout: 10)
-  wait_for_element_exists("* id:'contact_list_footer_view'", timeout: 10)
+  wait_for_element_exists("ContactView", timeout: 10)
 end
 
 Then(/^User should see alert dialog with text "([^"]*)"$/) do |arg1|
@@ -96,15 +96,41 @@ end
 
 Given(/^User sees list of contacts$/) do
   wait_for_element_exists("* id:'contact_list_item_status'", timeout: 10)
-  wait_for_element_exists("* id:'contact_list_footer_view'", timeout: 10)
+  wait_for_element_exists("ContactView", timeout: 10)
 end
 
-Given(/^User has a contact "([^"]*)"$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
+Given(/^User has a contact "([^"]*)" with GG number "([^"]*)"$/) do |arg1, arg2|
+  unless element_exists("ContactView")
+    add_contact(arg1, arg2) 
+  end
+end
+
+Given(/^User does not have a contact "([^"]*)" with GG number "([^"]*)"$/) do |arg1, arg2|
+  if element_exists("* id:'contact_list_item_show_name' text:'#{arg1}'")
+    remove_contact(arg1) 
+  end
+end
+
+Given(/^User is on new contact form$/) do
+  open_additional_option "Dodaj kontakt"
+end
+
+When(/^User navigates up$/) do
+  touch("* {contentDescription CONTAINS[c] 'Navigate up'}")
+end
+
+Then(/^User should not have contact "([^"]*)"$/) do |arg1|
+  unless element_exists("* id:'contact_list_item_show_name' text:'#{arg1}'")
+    screenshot_and_raise "Contact #{arg1} is still available"
+  end
+end
+
+When(/^User opens "([^"]*)" menu$/) do |arg1|
+  touch("* {contentDescription CONTAINS[c] '#{arg1}'}")
 end
 
 When(/^User click on a contact "([^"]*)"$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
+  touch("* id:'contact_list_item_show_name' text:'#{arg1}'")
 end
 
 Then(/^User has entered conversation with "([^"]*)"$/) do |arg1|
@@ -122,3 +148,4 @@ end
 Then(/^User see his message "([^"]*)"$/) do |arg1|
   pending # Write code here that turns the phrase above into concrete actions
 end
+

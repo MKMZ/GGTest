@@ -29,3 +29,26 @@ def login_in_user login, password
   fill_in_text_field("password", password)
   touch("* id:'login_button'")
 end
+
+def open_additional_option optionName
+  when_element_exists("* {contentDescription CONTAINS[c] 'More options'}", timeout: 10)
+  touch("* {contentDescription CONTAINS[c] 'More options'}")
+  when_element_exists("* {text CONTAINS[c] '#{optionName}'}", timeout: 10)
+  touch("* {text CONTAINS[c] '#{optionName}'}")
+end
+
+def add_contact name, channel
+  open_additional_option "Dodaj kontakt"
+  fill_in_text_field("contact_name", name)
+  fill_in_text_field("contact_channel", channel)
+  touch("* {text CONTAINS[c] 'Dodaj'}")
+  touch("* {contentDescription CONTAINS[c] 'Navigate up'}")
+end
+
+def remove_contact name
+  touch("* id:'contact_list_item_show_name' text:'#{name}'")
+  open_additional_option "Profil"
+  open_additional_option "Usuń kontakt"
+  touch("* {text CONTAINS[c] 'OK'}")
+  touch("* {contentDescription CONTAINS[c] 'Navigate up'}")
+end
