@@ -49,7 +49,7 @@ Then(/^User should see (\d+) checkboxes$/) do |arg1|
   end
 end
 
-Given(/^User is on the "([^"]*)" page$/) do |arg1|
+Given(/^User sees text "([^"]*)" on the header$/) do |arg1|
   wait_for_element_exists("aa text:'#{arg1}'", timeout: 20)
 end
 
@@ -86,10 +86,6 @@ end
 Given(/^User is on the new account page$/) do
   tap_mark('floating_action_button')
   touch("* text:'Utwórz nowe konto'")
-end
-
-When(/^User is filling in the "([^"]*)" field by "([^"]*)"$/) do |arg1, arg2|
-  pending # Write code here that turns the phrase above into concrete actions
 end
 
 Then(/^User should see text  "([^"]*)"$/) do |arg1|
