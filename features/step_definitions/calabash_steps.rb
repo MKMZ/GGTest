@@ -21,6 +21,10 @@ When(/^User is clicking on "([^"]*)"$/) do |arg1|
   touch("* {text CONTAINS[c] '#{arg1}'}")
 end
 
+When(/^User is clicking by id "([^"]*)"$/) do |arg1|
+  touch("* id:'#{arg1}'")
+end
+
 Then(/^User should see text field "([^"]*)"$/) do |arg1|
   wait_for_element_exists("* id:'#{arg1}'", timeout: 10)
 end
@@ -89,17 +93,49 @@ Given(/^User is on the new account page$/) do
 end
 
 Then(/^User should see text  "([^"]*)"$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
+  wait_for_text(arg1, timeout: 10)
 end
 
-Then(/^User should see acount page$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+Then(/^User should see account page$/) do
+  wait_for_element_exists("* id:'contact_list_item_status'", timeout: 10)
+  wait_for_element_exists("* id:'contact_list_footer_view'", timeout: 10)
 end
 
 Then(/^User should see alert dialog with text "([^"]*)"$/) do |arg1|
+  wait_for_element_exists("Space", timeout: 10)
+  wait_for_element_exists("* text:'#{arg1}'", timeout: 10)
+end
+
+# Conversations
+
+Given(/^User is logged in as "([^"]*)" with password "([^"]*)"$/) do |arg1, arg2|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then(/^User see alert dialog with text "([^"]*)"$/) do |arg1|
+Given(/^User sees list of contacts$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given(/^User has a contact "([^"]*)"$/) do |arg1|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+When(/^User click on a contact "([^"]*)"$/) do |arg1|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^User has entered conversation with "([^"]*)"$/) do |arg1|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Given(/^User entered conversation with "([^"]*)"$/) do |arg1|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+When(/^User entered text "([^"]*)"$/) do |arg1|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^User see his message "([^"]*)"$/) do |arg1|
   pending # Write code here that turns the phrase above into concrete actions
 end
