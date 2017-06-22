@@ -92,6 +92,7 @@ end
 
 Given(/^User is logged in as "([^"]*)" with password "([^"]*)"$/) do |arg1, arg2|
   login_in_user(arg1, arg2)
+  wait_for_element_exists("ContactView", timeout: 10)
 end
 
 Given(/^User sees list of contacts$/) do
@@ -100,7 +101,7 @@ Given(/^User sees list of contacts$/) do
 end
 
 Given(/^User has a contact "([^"]*)" with GG number "([^"]*)"$/) do |arg1, arg2|
-  unless element_exists("ContactView")
+  unless element_exists("* id:'contact_list_item_show_name' text:'#{arg1}'")
     add_contact(arg1, arg2) 
   end
 end
@@ -112,7 +113,11 @@ Given(/^User does not have a contact "([^"]*)" with GG number "([^"]*)"$/) do |a
 end
 
 Given(/^User is on new contact form$/) do
-  open_additional_option "Dodaj kontakt"
+  unless element_exists("* id:'contact_name'") && element_exists("* id:'contact_channel'")
+    open_additional_option "Dodaj kontakt"
+    wait_for_element_exists("* id:'contact_name'", timeout: 10)
+    wait_for_element_exists("* id:'contact_channel'", timeout: 10)
+  end
 end
 
 When(/^User navigates up$/) do
@@ -120,9 +125,7 @@ When(/^User navigates up$/) do
 end
 
 Then(/^User should not have contact "([^"]*)"$/) do |arg1|
-  unless element_exists("* id:'contact_list_item_show_name' text:'#{arg1}'")
-    screenshot_and_raise "Contact #{arg1} is still available"
-  end
+  wait_for_elements_do_not_exist("* id:'contact_list_item_show_name' text:'#{arg1}'", timeout: 10)
 end
 
 When(/^User opens "([^"]*)" menu$/) do |arg1|
@@ -134,19 +137,23 @@ When(/^User click on a contact "([^"]*)"$/) do |arg1|
 end
 
 Then(/^User has entered conversation with "([^"]*)"$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
+  wait_for_element_exists("ChatInputAreaView", timeout: 10)
+  wait_for_element_exists("MessageListView", timeout: 10)  
 end
 
 Given(/^User entered conversation with "([^"]*)"$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
+  touch("* id:'contact_list_item_show_name' text:'#{arg1}'")
+  wait_for_element_exists("ChatInputAreaView", timeout: 10)
+  wait_for_element_exists("MessageListView", timeout: 10)
 end
 
-When(/^User entered text "([^"]*)"$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
+When(/^User entered text of message "([^"]*)"$/) do |arg1|
+  perform_action('keyboard_enter_text', arg1)
+  perform_action('keyboard_key_event', 66) # pressing enter
 end
 
 Then(/^User see his message "([^"]*)"$/) do |arg1|
-  pending # Write code here that turns the phrase above into concrete actions
+  wait_for_element_exists("AnimatedTextView text:'#{arg1}'", timeout: 10)
 end
 
 #Visibility:
