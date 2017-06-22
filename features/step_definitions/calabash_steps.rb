@@ -167,7 +167,8 @@ Then(/^User's status should be set to "([^"]*)"$/) do |status|
 end
 
 Given(/^User opens user panel$/) do
-   touch("o")
+  wait_for_element_exists("* contentDescription:'Otwórz panel'", timeout: 10)
+  touch("* {contentDescription CONTAINS[c] '#{"Otwórz panel"}'}")
 end
 
 #Archive:
@@ -198,4 +199,8 @@ end
 
 Then (/^User should not see any new messages in archive$/) do
   pending
+end
+
+And (/^User is in archive screen$/) do
+  wait_for_element_exists("ListView", timeout: 10)
 end
