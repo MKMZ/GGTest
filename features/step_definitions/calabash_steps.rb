@@ -181,3 +181,15 @@ end
 Given(/^User sends message "([^"]*)" to "([^"]*)"$/) do |arg1, arg2|
   pending # Write code here that turns the phrase above into concrete actions
 end
+
+And (/^User disables message archiving option$/) do
+  pending
+end
+
+And (/^User presses back button$/) do
+  press_back_button
+end
+
+Then (/^User should not see any new messages in archive$/) do
+  pending
+end
