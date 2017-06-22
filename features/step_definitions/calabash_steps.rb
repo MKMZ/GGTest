@@ -79,8 +79,8 @@ Then(/^User should see text  "([^"]*)"$/) do |arg1|
 end
 
 Then(/^User should see account page$/) do
+  wait_for_element_exists("ContactView", timeout: 20)
   wait_for_element_exists("* id:'contact_list_item_status'", timeout: 10)
-  wait_for_element_exists("ContactView", timeout: 10)
 end
 
 Then(/^User should see alert dialog with text "([^"]*)"$/) do |arg1|
