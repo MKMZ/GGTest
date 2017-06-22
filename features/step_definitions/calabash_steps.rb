@@ -167,8 +167,7 @@ Then(/^User's status should be set to "([^"]*)"$/) do |status|
 end
 
 Given(/^User opens user panel$/) do
-    wait_for_element_exists("* contentDescription:'Otwórz panel'", timeout: 10)
-    touch("* {contentDescription CONTAINS[c] '#{"Otwórz panel"}'}")
+   touch("o")
 end
 
 #Archive:

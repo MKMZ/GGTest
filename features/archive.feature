@@ -17,4 +17,3 @@ Feature: Functionalities related with covnersation archive
          And User sends a message "Hello" to "Friend"
          And User goes to archive
          Then User should not see any new messages in archive
-       
