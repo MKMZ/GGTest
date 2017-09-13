@@ -79,8 +79,8 @@ Then(/^User should see text  "([^"]*)"$/) do |arg1|
 end
 
 Then(/^User should see account page$/) do
+  wait_for_element_exists("ContactView", timeout: 20)
   wait_for_element_exists("* id:'contact_list_item_status'", timeout: 10)
-  wait_for_element_exists("ContactView", timeout: 10)
 end
 
 Then(/^User should see alert dialog with text "([^"]*)"$/) do |arg1|
@@ -167,7 +167,8 @@ Then(/^User's status should be set to "([^"]*)"$/) do |status|
 end
 
 Given(/^User opens user panel$/) do
-   touch("o")
+  wait_for_element_exists("* contentDescription:'Otwórz panel'", timeout: 10)
+  touch("* {contentDescription CONTAINS[c] '#{"Otwórz panel"}'}")
 end
 
 #Archive:
@@ -198,4 +199,8 @@ end
 
 Then (/^User should not see any new messages in archive$/) do
   pending
+end
+
+And (/^User is in archive screen$/) do
+  wait_for_element_exists("ListView", timeout: 10)
 end
